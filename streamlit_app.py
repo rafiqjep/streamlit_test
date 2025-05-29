@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # Set the app title 
-st.title('💱 Currency Exchange Rate Viewer') 
+st.title('Choose ur Currency') 
 
 # Add a welcome message 
 st.write('Welcome to the currency exchange app!')
