@@ -1,20 +1,25 @@
-import streamlit as st
-import pandas as pd
+import streamlit as st 
+import requests
 
-# Load the E-number data
-data = pd.read_csv("e_numbers.csv")
+# Set the app title 
+st.title('My First Streamlit App !!') 
 
-st.title("Halal E-Number Checker")
+# Add a welcome message 
+st.write('Welcome to my Streamlit app!') 
 
-# Input from user
-e_input = st.text_input("Enter E-number (e.g., E120)").upper()
+# Create a text input 
+widgetuser_input = st.text_input('Enter a custom message:', 'Hello, Streamlit!') 
 
-if e_input:
-    result = data[data['e_number'] == e_input]
-    if not result.empty:
-        status = result.iloc[0]['status']
-        description = result.iloc[0]['description']
-        st.write(f"**Status:** {status}")
-        st.write(f"**Description:** {description}")
-    else:
-        st.warning("E-number not found in the database.")
+# Display the customized message 
+st.write('Customized Message:', widgetuser_input)
+
+
+#API calls
+response = requests.get('https://api.vatcomply.com/rates?base=MYR')
+
+if response.status_code == 200:
+    data = response.json()
+    st.write('Output:')
+    st.json(data)  # nicely formatted JSON output
+else:
+    st.error(f"API call failed with status code: {response.status_code}")
